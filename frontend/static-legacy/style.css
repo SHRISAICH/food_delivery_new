@@ -1,0 +1,4 @@
+/* Legacy static site CSS lives at `../style.css`.
+   This keeps the legacy site 1:1 without duplicating the huge file. */
+@import url("../style.css");
+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart — FEASTLY</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body class="cart-page">
+
+  <!-- NOTIFICATION TOAST -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">✓</span>
+    <span id="toast-msg">Item removed from cart</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">FEASTLY<span class="logo-dot">.</span></a>
+    <div class="nav-center"></div>
+    <div class="nav-right">
+      <a href="index.html" class="back-link">← Back to Menu</a>
+      <a href="cart.html" class="cart-btn active-cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Cart
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+    <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html" class="back-link">← Back to Menu</a>
+    </div>
+  </nav>
+
+  <!-- CART SECTION -->
+  <main class="cart-main">
+    <div class="container">
+      <div class="cart-header">
+        <h1 class="cart-title">Your Cart</h1>
+        <button class="clear-cart-btn" id="clear-cart-btn">Clear All</button>
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div class="cart-empty" id="cart-empty" style="display:none;">
+        <div class="empty-cart-visual">
+          <span class="empty-icon">🛒</span>
+          <div class="empty-circle"></div>
+        </div>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added anything yet. Let's fix that!</p>
+        <a href="index.html" class="empty-cta">Explore Menu →</a>
+      </div>
+
+      <!-- CART CONTENT -->
+      <div class="cart-layout" id="cart-layout">
+        <!-- CART ITEMS -->
+        <div class="cart-items-wrap">
+          <div class="cart-items-list" id="cart-items-list"></div>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <aside class="order-summary">
+          <h3 class="summary-title">Order Summary</h3>
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="subtotal">₹0</span>
+            </div>
+            <div class="summary-row">
+              <span>Delivery Fee</span>
+              <span id="delivery-fee">₹40</span>
+            </div>
+            <div class="summary-row discount-row" id="discount-row" style="display:none;">
+              <span>Discount</span>
+              <span id="discount-amount" class="discount-val">−₹0</span>
+            </div>
+            <div class="summary-row">
+              <span>GST (5%)</span>
+              <span id="gst">₹0</span>
+            </div>
+          </div>
+
+          <!-- COUPON -->
+          <div class="coupon-wrap">
+            <input type="text" id="coupon-input" placeholder="Enter promo code" />
+            <button id="coupon-btn">Apply</button>
+          </div>
+          <p class="coupon-hint" id="coupon-msg"></p>
+
+          <div class="summary-total">
+            <span>Total</span>
+            <span id="total-price">₹0</span>
+          </div>
+
+          <button class="checkout-btn" id="checkout-btn">
+            Proceed to Checkout →
+          </button>
+
+          <div class="payment-badges">
+            <span>💳</span><span>📱</span><span>🏦</span>
+            <p>Secure payment · Free cancellation</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- ORDER PLACED MODAL -->
+  <div class="modal-overlay" id="order-modal" style="display:none;">
+    <div class="modal">
+      <div class="modal-icon">🎉</div>
+      <h2>Order Placed!</h2>
+      <p>Your delicious food is being prepared. Estimated delivery: <strong>25–35 mins</strong></p>
+      <div class="modal-order-id">Order #FST<span id="order-id"></span></div>
+      <button class="modal-btn" id="modal-close">Back to Menu</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2025 Feastly. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

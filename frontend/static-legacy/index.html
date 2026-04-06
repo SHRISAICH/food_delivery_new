@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FEASTLY — Food Delivery</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NOTIFICATION TOAST -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">✓</span>
+    <span id="toast-msg">Item added to cart!</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">FEASTLY<span class="logo-dot">.</span></a>
+    <div class="nav-center">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="search-input" placeholder="Search dishes, restaurants..." />
+        <button class="search-clear" id="search-clear">✕</button>
+      </div>
+    </div>
+    <div class="nav-right">
+      <span class="nav-tag">Free delivery over ₹499</span>
+      <a href="cart.html" class="cart-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Cart
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+    <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="cart.html" class="cart-btn">
+        🛒 Cart <span class="cart-count" id="cart-count-mobile">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🔥 Trending Now</div>
+      <h1 class="hero-title">Hungry?<br><em>We got you.</em></h1>
+      <p class="hero-subtitle">Premium food delivered in 30 mins or less. 500+ restaurants, zero compromise.</p>
+      <div class="hero-stats">
+        <div class="stat"><strong>30</strong><span>min avg delivery</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong>500+</strong><span>restaurants</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong>4.8★</strong><span>avg rating</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" alt="Delicious food" />
+        <div class="hero-float-card">
+          <span>🏍️</span>
+          <div>
+            <strong>On the way!</strong>
+            <p>Arrives in 18 min</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY FILTERS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What are you <em>craving?</em></h2>
+      </div>
+      <div class="categories">
+        <button class="cat-btn active" data-cat="all">
+          <span class="cat-icon">🍽️</span> All
+        </button>
+        <button class="cat-btn" data-cat="pizza">
+          <span class="cat-icon">🍕</span> Pizza
+        </button>
+        <button class="cat-btn" data-cat="burger">
+          <span class="cat-icon">🍔</span> Burger
+        </button>
+        <button class="cat-btn" data-cat="sushi">
+          <span class="cat-icon">🍱</span> Sushi
+        </button>
+        <button class="cat-btn" data-cat="pasta">
+          <span class="cat-icon">🍝</span> Pasta
+        </button>
+        <button class="cat-btn" data-cat="drinks">
+          <span class="cat-icon">🥤</span> Drinks
+        </button>
+        <button class="cat-btn" data-cat="dessert">
+          <span class="cat-icon">🍰</span> Dessert
+        </button>
+        <button class="cat-btn" data-cat="healthy">
+          <span class="cat-icon">🥗</span> Healthy
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOD GRID -->
+  <section class="section" id="menu">
+    <div class="container">
+      <div class="food-toolbar">
+        <p class="food-count"><span id="item-count">0</span> items found</p>
+        <div class="sort-wrap">
+          <label>Sort by</label>
+          <select id="sort-select">
+            <option value="default">Default</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+          </select>
+        </div>
+      </div>
+      <div class="food-grid" id="food-grid"></div>
+      <div class="empty-state" id="empty-state" style="display:none;">
+        <span>🍽️</span>
+        <h3>No dishes found</h3>
+        <p>Try a different category or search term</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO BANNER -->
+  <section class="promo-banner">
+    <div class="container promo-inner">
+      <div class="promo-text">
+        <h2>Get <span>50% OFF</span> your first order</h2>
+        <p>Use code <strong>FEAST50</strong> at checkout. Valid for new users.</p>
+      </div>
+      <a href="cart.html" class="promo-btn">Order Now →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">FEASTLY<span class="logo-dot">.</span></span>
+        <p>Premium food delivery, redefined.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-links">
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="footer-links">
+        <h4>Follow Us</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Feastly. All rights reserved. Made with ❤️ for food lovers.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
