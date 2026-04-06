@@ -2,8 +2,11 @@
   "name": "feastly",
   "version": "1.0.0",
   "description": "MERN app with serverless backend",
+  "workspaces": [
+    "backend/feastly-backend"
+  ],
   "scripts": {
-    "build": "cd backend/feastly-backend && npm install",
+    "build": "npm install",
     "dev:backend": "cd backend/feastly-backend && npm run dev",
     "dev:frontend": "npx serve -l 5173 frontend",
     "start": "npm run build && node backend/feastly-backend/server.js"
