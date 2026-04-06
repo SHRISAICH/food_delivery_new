@@ -59,7 +59,9 @@ app.use((req, res) => res.status(404).json({ success: false, message: "Route not
 // Error handler
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || "development"} mode`));
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || "development"} mode`));
+}
 
 module.exports = app;
