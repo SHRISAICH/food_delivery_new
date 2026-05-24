@@ -210,6 +210,70 @@ let sortMode = "default";
 let appliedCoupon = null;
 let discountPct = 0;
 
+// ─── AUTH HELPERS ────────────────────────────────────────────
+function getUser() {
+  return JSON.parse(localStorage.getItem("feastly_user") || "null");
+}
+function saveUser(user) {
+  localStorage.setItem("feastly_user", JSON.stringify(user));
+}
+function getUserName(email) {
+  return email.split("@")[0].replace(/[._-]+/g, " ");
+}
+function setHomeVisible() {
+  document.body.classList.remove("auth-pending");
+  updateUserUI();
+}
+function updateUserUI() {
+  const user = getUser();
+  const chip = document.getElementById("user-chip");
+  if (chip && user) chip.textContent = `Hi, ${user.name}`;
+}
+function setupAuth() {
+  const user = getUser();
+  const form = document.getElementById("login-form");
+  const emailInput = document.getElementById("login-email");
+  const passwordInput = document.getElementById("login-password");
+  const errorEl = document.getElementById("login-error");
+
+  if (document.body.classList.contains("cart-page") && !user) {
+    window.location.href = "index.html";
+    return false;
+  }
+
+  if (form) {
+    if (user) {
+      setHomeVisible();
+    }
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      if (!email || password.length < 4) {
+        if (errorEl) errorEl.textContent = "Enter a valid email and password.";
+        return;
+      }
+
+      saveUser({ email, name: getUserName(email) });
+      setHomeVisible();
+      showToast("Logged in successfully");
+    });
+  } else {
+    updateUserUI();
+  }
+
+  document.querySelectorAll("#logout-btn, #logout-btn-mobile").forEach(btn => {
+    btn.addEventListener("click", () => {
+      localStorage.removeItem("feastly_user");
+      window.location.href = "index.html";
+    });
+  });
+
+  return true;
+}
+
 // ─── CART HELPERS ────────────────────────────────────────────
 function getCart() {
   return JSON.parse(localStorage.getItem("feastly_cart") || "[]");
@@ -581,6 +645,7 @@ function setupMobileMenu() {
 
 // ─── INIT ────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
+  if (!setupAuth()) return;
   updateCartBadge();
   setupMobileMenu();
 

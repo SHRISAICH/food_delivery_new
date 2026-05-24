@@ -3,6 +3,10 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 
 function Home() {
+  if (!localStorage.getItem("token")) {
+    return <Navigate to="/login" replace />;
+  }
+
   // On Netlify, show your real (legacy) homepage UI.
   window.location.replace("/legacy/index.html");
   return null;
@@ -18,4 +22,3 @@ export default function App() {
     </Routes>
   );
 }
-
