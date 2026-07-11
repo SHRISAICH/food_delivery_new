@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -8,17 +9,30 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Use Vite env variable (create frontend/.env: VITE_API_URL=http://localhost:5000)
+  const API = import.meta.env.VITE_API_URL || "";
+
   async function onSubmit(e) {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-      // Temporary: until API wiring is added
-      await new Promise((r) => setTimeout(r, 500));
-      localStorage.setItem("token", "demo-token");
+      const res = await axios.post(`${API}/api/auth/login`, { email, password });
+      // API response shape based on backend: { success: true, data: { token, ... } }
+      const token = res?.data?.data?.token;
+      if (!token) throw new Error("No token received from server");
+      localStorage.setItem("token", token);
+      // Optionally store user info: localStorage.setItem("user", JSON.stringify(res.data.data));
       navigate("/", { replace: true });
     } catch (err) {
-      setError("Login failed. Please try again.");
+      // Show friendly messages
+      if (err.response?.status === 401) {
+        setError("Invalid email or password.");
+      } else if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Login failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -81,4 +95,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
