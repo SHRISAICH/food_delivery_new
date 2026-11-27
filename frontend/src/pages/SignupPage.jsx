@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -8,18 +9,20 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const API = import.meta.env.VITE_API_URL || "";
 
   async function onSubmit(e) {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-      // Temporary: until API wiring is added
-      await new Promise((r) => setTimeout(r, 500));
-      localStorage.setItem("token", "demo-token");
+      const res = await axios.post(`${API}/api/auth/register`, { name, email, password });
+      const token = res?.data?.data?.token;
+      if (!token) throw new Error("No token received from server");
+      localStorage.setItem("token", token);
       navigate("/", { replace: true });
     } catch (err) {
-      setError("Signup failed. Please try again.");
+      setError(err.response?.data?.message || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }

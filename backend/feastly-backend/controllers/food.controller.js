@@ -11,10 +11,10 @@ exports.getAllFoods = async (req, res, next) => {
     const filter = {};
     if (category && category !== "all") filter.category = category;
     if (available !== undefined) filter.available = available === "true";
-    if (minPrice || maxPrice) {
+    if (minPrice !== undefined || maxPrice !== undefined) {
       filter.price = {};
-      if (minPrice) filter.price.$gte = parseFloat(minPrice);
-      if (maxPrice) filter.price.$lte = parseFloat(maxPrice);
+      if (minPrice !== undefined) filter.price.$gte = parseFloat(minPrice);
+      if (maxPrice !== undefined) filter.price.$lte = parseFloat(maxPrice);
     }
     if (search) filter.$text = { $search: search };
 
