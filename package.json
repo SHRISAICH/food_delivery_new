@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "MERN app with serverless backend",
   "workspaces": [
-    "backend/feastly-backend",
     "frontend"
   ],
   "scripts": {
@@ -11,5 +10,8 @@
     "dev:backend": "cd backend/feastly-backend && npm run dev",
     "dev:frontend": "npm run dev -w frontend",
     "start": "npm run build && node backend/feastly-backend/server.js"
+  },
+  "dependencies": {
+    "feastly-backend": "file:backend/feastly-backend"
   }
 }
