@@ -24,6 +24,9 @@ exports.addToCart = async (req, res, next) => {
     if (!cart) cart = new Cart({ user: req.user._id, items: [] });
 
     const existingItem = cart.items.find((item) => item.food.toString() === foodId);
+    if (existingItem && existingItem.quantity + quantity > 50) {
+      return res.status(400).json({ success: false, message: "Cart item quantity cannot exceed 50" });
+    }
     if (existingItem) existingItem.quantity += quantity;
     else cart.items.push({ food: foodId, quantity });
 

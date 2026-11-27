@@ -9,6 +9,12 @@ exports.placeOrder = async (req, res, next) => {
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ success: false, message: "Cart is empty" });
     }
+    if (cart.items.some((item) => !item.food || !item.food.available)) {
+      return res.status(409).json({
+        success: false,
+        message: "One or more cart items are no longer available. Update your cart and try again.",
+      });
+    }
 
     const orderItems = cart.items.map((item) => ({
       food: item.food._id,
